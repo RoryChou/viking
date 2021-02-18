@@ -49,10 +49,13 @@ export const Menu: FC<MenuProps> = (props) => {
     defaultOpenSubMenus,
   }
   const renderChildren = () => {
+    // todo react提供了针对children的循环方法，map和foreach，避免直接对children进行循环操作
     return React.Children.map(children, (child, index) => {
+      // todo as 是类型断言，限制了child的类型，一般在你知道更为具体准确的类型时使用
       const childElement = child as React.FunctionComponentElement<MenuItemProps>
       const { displayName } = childElement.type
       if (displayName === 'MenuItem' || displayName === 'SubMenu') {
+        // todo react提供的clone方法，用来复制组件，这里的目的是为了改变一下这个组件的属性，使其增加index
         return React.cloneElement(childElement, {
           index: index.toString()
         })
