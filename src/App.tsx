@@ -5,8 +5,12 @@ function App() {
   return (
     <div className="App">
       <Button disabled>默认</Button>
+      <Button autoFocus>autoFocus</Button>
+      <Button className='customerClassname'>customerClassname</Button>
+      <Button onClick={(e) => {e.preventDefault();alert(123)}}>onclick</Button>
       <Button btnType='primary' size='lg'>primary</Button>
       <Button btnType='link' href='http://www.baidu.com'>百度</Button>
+      <Button btnType='link' href='http://www.baidu.com' target='blank'>百度</Button>
       <Button>默认</Button>
       <header className="App-header"></header>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { type } from 'os'
 
@@ -26,19 +26,25 @@ interface BaseButtonProps {
   href?: string;
 }
 
+type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
+// todo 使用工具泛型Partial<> 将类型的所有属性转变为可选属性
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+
 // todo 什么是泛型？
-const Button: React.FC<BaseButtonProps> = props => {
+const Button: React.FC<ButtonProps> = props => {
   const { 
     btnType,
     className,
     disabled,
     size,
     children,
-    href
+    href,
+    ...restProps
   } = props
 
   // todo 动态class名是什么
-  const classes = classNames('btn',{
+  const classes = classNames('btn',className,{
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     'disabled': (btnType === 'link') && disabled
@@ -46,13 +52,13 @@ const Button: React.FC<BaseButtonProps> = props => {
 
   if(btnType === 'link' && href){
     return(
-      <a className={classes} href={href}>
+      <a className={classes} href={href} {...restProps}>
         {children}
       </a>
     )
   } else {
     return(
-      <button className={classes} disabled={disabled}>
+      <button className={classes} disabled={disabled} {...restProps}>
         {children}
       </button>
     )
