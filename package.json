@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^11.0.0",
     "add": "2.0.6",
     "husky": "=4",
     "lint-staged": ">=10",
@@ -53,8 +54,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {

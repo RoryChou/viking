@@ -1,8 +1,8 @@
-import React, { FC, useState, createContext, CSSProperties } from 'react'
-import classNames from 'classnames'
-import { MenuItemProps } from './menuitem'
+import React, { FC, useState, createContext, CSSProperties } from "react";
+import classNames from "classnames";
+import { MenuItemProps } from "./menuItem";
 
-type MenuMode = 'horizontal' | 'vertical'
+type MenuMode = "horizontal" | "vertical";
 export interface MenuProps {
   /**默认 active 的菜单项的索引值 */
   defaultIndex?: string;
@@ -19,10 +19,10 @@ interface IMenuContext {
   index: string;
   onSelect?: (selectedIndex: string) => void;
   mode?: MenuMode;
-  defaultOpenSubMenus?: string[];  
+  defaultOpenSubMenus?: string[];
 }
 
-export const MenuContext = createContext<IMenuContext>({index: '0'})
+export const MenuContext = createContext<IMenuContext>({ index: "0" });
 /**
  * 为网站提供导航功能的菜单。支持横向纵向两种模式，支持下拉菜单。
  * ~~~js
@@ -30,52 +30,62 @@ export const MenuContext = createContext<IMenuContext>({index: '0'})
  * ~~~
  */
 export const Menu: FC<MenuProps> = (props) => {
-  const { className, mode, style, children, defaultIndex, onSelect, defaultOpenSubMenus } = props
-  const [ currentActive, setActive ] = useState(defaultIndex)
-  const classes = classNames('viking-menu', className, {
-    'menu-vertical': mode === 'vertical',
-    'menu-horizontal': mode !== 'vertical',
-  })
+  const {
+    className,
+    mode,
+    style,
+    children,
+    defaultIndex,
+    onSelect,
+    defaultOpenSubMenus,
+  } = props;
+  const [currentActive, setActive] = useState(defaultIndex);
+  const classes = classNames("viking-menu", className, {
+    "menu-vertical": mode === "vertical",
+    "menu-horizontal": mode !== "vertical",
+  });
   const handleClick = (index: string) => {
-    setActive(index)
-    if(onSelect) {
-      onSelect(index)
+    setActive(index);
+    if (onSelect) {
+      onSelect(index);
     }
-  }
+  };
   const passedContext: IMenuContext = {
-    index: currentActive ? currentActive : '0',
+    index: currentActive ? currentActive : "0",
     onSelect: handleClick,
     mode,
     defaultOpenSubMenus,
-  }
+  };
   const renderChildren = () => {
     // todo react提供了针对children的循环方法，map和foreach，避免直接对children进行循环操作
     return React.Children.map(children, (child, index) => {
       // todo as 是类型断言，限制了child的类型，一般在你知道更为具体准确的类型时使用
-      const childElement = child as React.FunctionComponentElement<MenuItemProps>
-      const { displayName } = childElement.type
-      if (displayName === 'MenuItem' || displayName === 'SubMenu') {
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+      const { displayName } = childElement.type;
+      if (displayName === "MenuItem" || displayName === "SubMenu") {
         // todo react提供的clone方法，用来复制组件，这里的目的是为了改变一下这个组件的属性，使其增加index
         return React.cloneElement(childElement, {
-          index: index.toString()
-        })
+          index: index.toString(),
+        });
       } else {
-        console.error("Warning: Menu has a child which is not a MenuItem component")
+        console.error(
+          "Warning: Menu has a child which is not a MenuItem component"
+        );
       }
-    })
-  }
+    });
+  };
   return (
     <ul className={classes} style={style} data-testid="test-menu">
       <MenuContext.Provider value={passedContext}>
         {renderChildren()}
       </MenuContext.Provider>
     </ul>
-  )
-}
+  );
+};
 Menu.defaultProps = {
-  defaultIndex: '0',
-  mode: 'horizontal',
+  defaultIndex: "0",
+  mode: "horizontal",
   defaultOpenSubMenus: [],
-}
+};
 
 export default Menu;
