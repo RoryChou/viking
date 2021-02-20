@@ -44,8 +44,18 @@
   },
   "devDependencies": {
     "add": "2.0.6",
+    "husky": "=4",
+    "lint-staged": ">=10",
     "node-sass": "^5.0.0",
     "prettier": "2.2.1",
     "yarn": "1.22.10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }
