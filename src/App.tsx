@@ -3,6 +3,7 @@ import Button from "./components/Button/button";
 import Menu from "./components/Menu/menu";
 import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
+import ProjectListScreen from "./demo/list/index.jsx";
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
       </Button>
       <Button>默认</Button>
       <header className="App-header"></header>
+
+      <ProjectListScreen />
     </div>
   );
 }
