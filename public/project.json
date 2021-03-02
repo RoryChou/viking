@@ -1,0 +1,27 @@
+{
+  "data": [{
+    "id": 1,
+    "name": "骑手管理",
+    "personId": 1,
+    "orgnization": "外卖组",
+    "created": 1
+  }, {
+    "id": 2,
+    "name": "团购app",
+    "personId": 2,
+    "orgnization": 1,
+    "created": 1
+  }, {
+    "id": 3,
+    "name": "物料",
+    "personId": 3,
+    "orgnization": 1,
+    "created": 1
+  }, {
+    "id": 4,
+    "name": "总部",
+    "personId": 4,
+    "orgnization": 1,
+    "created": 1
+  }]
+}

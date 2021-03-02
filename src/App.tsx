@@ -8,7 +8,7 @@ import ProjectListScreen from "./demo/list/index.jsx";
 function App() {
   return (
     <div className="App">
-      <Menu
+      {/* <Menu
         defaultIndex="0"
         onSelect={(index) => {
           alert(index);
@@ -42,7 +42,7 @@ function App() {
       <Button btnType="link" href="http://www.baidu.com" target="blank">
         百度
       </Button>
-      <Button>默认</Button>
+      <Button>默认</Button> */}
       <header className="App-header"></header>
 
       <ProjectListScreen />
